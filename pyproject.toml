@@ -1,0 +1,19 @@
+[project]
+name = "ai-powered-resume-screening-and-job-matching-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Plakshi Yadav", email = "sa6001533@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pymupdf>=2.0",
+]
+
+[project.scripts]
+ai-powered-resume-screening-and-job-matching-system = "ai_powered_resume_screening_and_job_matching_system:main"
+
+[build-system]
+requires = ["uv_build>=0.12.6,<0.13.0"]
+build-backend = "uv_build"
