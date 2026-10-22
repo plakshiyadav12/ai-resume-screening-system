@@ -14,6 +14,138 @@ st.set_page_config(
 
 
 
+from pathlib import Path
+import base64
+
+logo_path = Path(__file__).parent / "assets" / "rational_logo.png"
+logo_base64 = base64.b64encode(logo_path.read_bytes()).decode("utf-8")
+
+st.markdown("""
+<style>
+.stApp {
+    background: #080e19;
+    color: #e8eef8;
+}
+[data-testid="stHeader"] {
+    background: #080e19;
+}
+[data-testid="stSidebar"] {
+    background: #0d1728;
+}
+.block-container {
+    max-width: 1250px;
+    padding-top: 1.5rem;
+}
+h1, h2, h3, p, label {
+    color: #e8eef8;
+}
+.brand-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0 16px;
+    border-bottom: 2px solid #3478f6;
+    margin-bottom: 28px;
+}
+.brand-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.brand-left img {
+    width: 62px;
+    height: auto;
+    object-fit: contain;
+}
+.brand-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f4f7fc;
+}
+.brand-subtitle {
+    font-size: 12px;
+    color: #91a4c2;
+    margin-top: 4px;
+}
+.brand-right {
+    font-size: 12px;
+    color: #9eafc9;
+    text-align: right;
+}
+.panel {
+    background: #0e192b;
+    border: 1px solid #1d2b42;
+    border-radius: 12px;
+    padding: 20px;
+}
+div[data-testid="stMetric"] {
+    background: #101d31;
+    border: 1px solid #263751;
+    border-radius: 10px;
+    padding: 14px;
+}
+div[data-testid="stMetricLabel"] {
+    color: #9eafc9;
+}
+div[data-testid="stMetricValue"] {
+    color: #f4f7fc;
+}
+div[data-testid="stTextArea"] textarea,
+div[data-testid="stTextInput"] input {
+    background: #0a1423;
+    color: #f4f7fc;
+    border: 1px solid #2b3d58;
+    border-radius: 8px;
+}
+[data-testid="stFileUploader"] {
+    background: #0a1423;
+    border: 1px dashed #36557f;
+    border-radius: 10px;
+}
+[data-testid="stExpander"] {
+    background: #0e192b;
+    border: 1px solid #263751;
+    border-radius: 10px;
+}
+.stButton > button[kind="primary"],
+.stDownloadButton > button {
+    background: #2867df;
+    color: white;
+    border: 1px solid #2867df;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.stButton > button[kind="primary"]:hover,
+.stDownloadButton > button:hover {
+    background: #1d54bd;
+    border-color: #1d54bd;
+    color: white;
+}
+hr {
+    border-color: #263751;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div class="brand-bar">
+    <div class="brand-left">
+        <img src="data:image/png;base64,{logo_base64}" alt="Rational logo">
+        <div>
+            <div class="brand-name">Rational Technologies</div>
+            <div class="brand-subtitle">AI Resume Screening System</div>
+        </div>
+    </div>
+    <div class="brand-right">
+        Talent Intelligence<br>Resume Analysis &amp; Matching
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+
+
+
 def extract_pdf_text(uploaded_file):
     """Extract selectable text from an uploaded PDF."""
     text_parts = []
@@ -28,8 +160,24 @@ def extract_pdf_text(uploaded_file):
 
 
 
-st.title("📄 AI Resume Screening System")
-st.caption("Resume analysis, skill-gap identification, and job matching")
+
+st.markdown("""
+<div class="hero">
+    <div class="hero-eyebrow">Talent Intelligence · Project Prototype</div>
+    <h1>AI Resume Screening System</h1>
+    <p>
+        A smarter way to compare candidate profiles with job requirements.
+        Analyze skills, understand match scores, identify skill gaps, and
+        export an organized candidate shortlist.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown(
+    '<div class="section-label">01 / Job requirements</div>',
+    unsafe_allow_html=True,
+)
+
 
 with st.sidebar:
     st.header("About the project")
@@ -39,7 +187,10 @@ with st.sidebar:
         "not predictions of job performance."
     )
 
-st.subheader("1. Enter the job requirements")
+st.markdown(
+    '<div class="section-label">02 / Candidate profiles</div>',
+    unsafe_allow_html=True,
+)
 
 job_desc = st.text_area(
     "Job description",
@@ -52,7 +203,10 @@ required_skills_input = st.text_input(
     placeholder="Python, SQL, Flask, Machine Learning",
 )
 
-st.subheader("2. Add candidate resumes")
+st.markdown(
+    '<div class="section-label">03 / Analysis results</div>',
+    unsafe_allow_html=True,
+)
 
 input_method = st.radio(
     "Resume input method",
@@ -172,7 +326,10 @@ if st.button("Analyze resumes", type="primary"):
           mime="text/csv",
         )        
 
-        st.subheader("3. Candidate ranking")
+        st.markdown(
+             '<div class="section-label">04 / Candidate ranking</div>',
+              unsafe_allow_html=True,
+            )
 
         if not target_skills:
             st.info(
